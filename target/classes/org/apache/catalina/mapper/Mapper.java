@@ -42,6 +42,8 @@ import org.apache.tomcat.util.res.StringManager;
  * Mapper, which implements the servlet API mapping rules (which are derived
  * from the HTTP rules).
  *
+ * Mapper，它实现 servlet API 映射规则(从HTTP规则派生)。
+ *
  * @author Remy Maucherat
  */
 public final class Mapper {

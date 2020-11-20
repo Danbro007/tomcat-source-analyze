@@ -527,7 +527,7 @@ public class StandardService extends LifecycleMBeanBase implements Service {
      */
     @Override
     protected void initInternal() throws LifecycleException {
-
+        // 先调用父类的 initInternal() 方法
         super.initInternal();
 
         if (engine != null) {
@@ -535,6 +535,7 @@ public class StandardService extends LifecycleMBeanBase implements Service {
         }
 
         // Initialize any Executors
+        // 初始化线程池
         for (Executor executor : findExecutors()) {
             if (executor instanceof JmxEnabled) {
                 ((JmxEnabled) executor).setDomain(getDomain());
@@ -543,6 +544,7 @@ public class StandardService extends LifecycleMBeanBase implements Service {
         }
 
         // Initialize mapper listener
+        // 初始化 Mapper 监听器（啥都没做）
         mapperListener.init();
 
         // Initialize our defined Connectors

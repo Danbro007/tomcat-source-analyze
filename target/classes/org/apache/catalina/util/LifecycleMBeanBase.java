@@ -49,6 +49,10 @@ public abstract class LifecycleMBeanBase extends LifecycleBase
      * Sub-classes wishing to perform additional initialization should override
      * this method, ensuring that super.initInternal() is the first call in the
      * overriding method.
+     *
+     * 子类如果想要添加额外的初始化操作可以通过重写这个方法来实现，
+     * 确保父类的 initInternal() 方法在当前重写方法里是第一个被调用的。
+     *
      */
     @Override
     protected void initInternal() throws LifecycleException {

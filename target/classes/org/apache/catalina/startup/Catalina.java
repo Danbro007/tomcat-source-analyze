@@ -539,6 +539,9 @@ public class Catalina {
 
     /**
      * Start a new server instance.
+     *
+     * 开启服务
+     *
      */
     public void load() {
 
@@ -555,6 +558,7 @@ public class Catalina {
         initNaming();
 
         // Create and execute our Digester
+        // 创建一个用来解析 server.xml 配置文件的解析器
         Digester digester = createStartDigester();
 
         InputSource inputSource = null;
@@ -648,6 +652,7 @@ public class Catalina {
 
         // Start the new server
         try {
+            // 初始化 Server
             getServer().init();
         } catch (LifecycleException e) {
             if (Boolean.getBoolean("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE")) {

@@ -100,6 +100,9 @@ public class StandardThreadExecutor extends LifecycleMBeanBase
 
     // ---------------------------------------------- Public Methods
 
+    /**
+     * 线程池的初始化就是直接使用父类的，没有额外的操作。
+     */
     @Override
     protected void initInternal() throws LifecycleException {
         super.initInternal();

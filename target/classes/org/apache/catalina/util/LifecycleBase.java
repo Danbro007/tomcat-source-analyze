@@ -95,7 +95,9 @@ public abstract class LifecycleBase implements Lifecycle {
         }
     }
 
-
+    /**
+     * initInternal ()模板方法
+     */
     @Override
     public final synchronized void init() throws LifecycleException {
         if (!state.equals(LifecycleState.NEW)) {
@@ -114,7 +116,10 @@ public abstract class LifecycleBase implements Lifecycle {
         }
     }
 
-
+    /**
+     * 模板方法
+     * @throws
+     */
     protected abstract void initInternal() throws LifecycleException;
 
     /**
