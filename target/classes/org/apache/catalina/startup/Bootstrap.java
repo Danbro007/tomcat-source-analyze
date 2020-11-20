@@ -250,10 +250,13 @@ public final class Bootstrap {
 
     /**
      * Initialize daemon.
+     *
+     * 1、通过反射获取到 Catalina 的实例对象
+     *
      * @throws Exception Fatal initialization error
      */
     public void init() throws Exception {
-
+        // 初始化类加载器
         initClassLoaders();
 
         Thread.currentThread().setContextClassLoader(catalinaLoader);
@@ -264,6 +267,7 @@ public final class Bootstrap {
         if (log.isDebugEnabled())
             log.debug("Loading startup class");
         Class<?> startupClass = catalinaLoader.loadClass("org.apache.catalina.startup.Catalina");
+        // 1、通过发射获取 Catalina 的实例
         Object startupInstance = startupClass.getConstructor().newInstance();
 
         // Set the shared extensions class loader

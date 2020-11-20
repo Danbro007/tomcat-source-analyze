@@ -88,6 +88,9 @@ public class Catalina {
 
     /**
      * Pathname to the server configuration file.
+     *
+     * 服务器配置文件的路径
+     *
      */
     protected String configFile = "conf/server.xml";
 
@@ -101,18 +104,27 @@ public class Catalina {
 
     /**
      * The server component we are starting or stopping.
+     *
+     * 开启或停止的服务器组件
+     *
      */
     protected Server server = null;
 
 
     /**
      * Use shutdown hook flag.
+     *
+     * 是否使用关闭沟程序的标志位
+     *
      */
     protected boolean useShutdownHook = true;
 
 
     /**
      * Shutdown hook.
+     *
+     * 关闭的钩子程序
+     *
      */
     protected Thread shutdownHook = null;
 
@@ -669,6 +681,9 @@ public class Catalina {
 
     /**
      * Start a new server instance.
+     *
+     * 启动一个新的服务器实例
+     *
      */
     public void start() {
 

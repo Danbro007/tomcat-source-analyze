@@ -250,10 +250,13 @@ public final class Bootstrap {
 
     /**
      * Initialize daemon.
+     *
+     * 1、通过反射获取到 Catalina 的实例对象
+     *
      * @throws Exception Fatal initialization error
      */
     public void init() throws Exception {
-
+        // 初始化类加载器
         initClassLoaders();
 
         Thread.currentThread().setContextClassLoader(catalinaLoader);
@@ -264,6 +267,7 @@ public final class Bootstrap {
         if (log.isDebugEnabled())
             log.debug("Loading startup class");
         Class<?> startupClass = catalinaLoader.loadClass("org.apache.catalina.startup.Catalina");
+        // 1、通过发射获取 Catalina 的实例
         Object startupInstance = startupClass.getConstructor().newInstance();
 
         // Set the shared extensions class loader
@@ -285,6 +289,9 @@ public final class Bootstrap {
 
     /**
      * Load daemon.
+     *
+     * 加载配置文件，通过反射获取到 Catalina 的 load() 方法并执行。
+     *
      */
     private void load(String[] arguments)
         throws Exception {
@@ -460,6 +467,7 @@ public final class Bootstrap {
             // Don't set daemon until init() has completed
             Bootstrap bootstrap = new Bootstrap();
             try {
+                // 执行 BootStrap 的初始化的操作
                 bootstrap.init();
             } catch (Throwable t) {
                 handleThrowable(t);
@@ -473,7 +481,7 @@ public final class Bootstrap {
             // a range of class not found exceptions.
             Thread.currentThread().setContextClassLoader(daemon.catalinaLoader);
         }
-
+        // 通过命令执行不同的操作
         try {
             String command = "start";
             if (args.length > 0) {
@@ -489,6 +497,7 @@ public final class Bootstrap {
                 daemon.stop();
             } else if (command.equals("start")) {
                 daemon.setAwait(true);
+                // 加载读取 server.xml 配置文件
                 daemon.load(args);
                 daemon.start();
                 if (null == daemon.getServer()) {

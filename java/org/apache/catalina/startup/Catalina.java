@@ -88,6 +88,9 @@ public class Catalina {
 
     /**
      * Pathname to the server configuration file.
+     *
+     * 服务器配置文件的路径
+     *
      */
     protected String configFile = "conf/server.xml";
 
@@ -101,18 +104,27 @@ public class Catalina {
 
     /**
      * The server component we are starting or stopping.
+     *
+     * 开启或停止的服务器组件
+     *
      */
     protected Server server = null;
 
 
     /**
      * Use shutdown hook flag.
+     *
+     * 是否使用关闭沟程序的标志位
+     *
      */
     protected boolean useShutdownHook = true;
 
 
     /**
      * Shutdown hook.
+     *
+     * 关闭的钩子程序
+     *
      */
     protected Thread shutdownHook = null;
 
@@ -527,6 +539,9 @@ public class Catalina {
 
     /**
      * Start a new server instance.
+     *
+     *
+     *
      */
     public void load() {
 
@@ -543,6 +558,7 @@ public class Catalina {
         initNaming();
 
         // Create and execute our Digester
+        // 创建一个用来解析 server.xml 配置文件的解析器
         Digester digester = createStartDigester();
 
         InputSource inputSource = null;
@@ -636,6 +652,7 @@ public class Catalina {
 
         // Start the new server
         try {
+            // 初始化 Server
             getServer().init();
         } catch (LifecycleException e) {
             if (Boolean.getBoolean("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE")) {
@@ -669,6 +686,9 @@ public class Catalina {
 
     /**
      * Start a new server instance.
+     *
+     * 启动一个新的服务器实例
+     *
      */
     public void start() {
 
