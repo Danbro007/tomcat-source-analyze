@@ -1115,6 +1115,7 @@ public abstract class AbstractEndpoint<S> {
 
     public void init() throws Exception {
         if (bindOnInit) {
+            // 监听端口
             bind();
             bindState = BindState.BOUND_ON_INIT;
         }

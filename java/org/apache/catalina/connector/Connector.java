@@ -966,14 +966,16 @@ public class Connector extends LifecycleMBeanBase  {
         super.initInternal();
 
         // Initialize adapter
+        // 初始化适配器来适配 Request 和 ServletRequest 以及 Response 和 ServletResponse
         adapter = new CoyoteAdapter(this);
+        // 把适配器配置到 ProtocolHandler
         protocolHandler.setAdapter(adapter);
 
         // Make sure parseBodyMethodsSet has a default
         if (null == parseBodyMethodsSet) {
             setParseBodyMethods(getParseBodyMethods());
         }
-
+        // 如果是 APR 协议但是没有配置则抛出异常
         if (protocolHandler.isAprRequired() && !AprLifecycleListener.isAprAvailable()) {
             throw new LifecycleException(sm.getString("coyoteConnector.protocolHandlerNoApr",
                     getProtocolHandlerClassName()));
@@ -990,6 +992,7 @@ public class Connector extends LifecycleMBeanBase  {
         }
 
         try {
+            // 初始化 ProtocolHandler
             protocolHandler.init();
         } catch (Exception e) {
             throw new LifecycleException(
