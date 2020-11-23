@@ -604,7 +604,7 @@ public abstract class HttpServlet extends GenericServlet {
      * {@link javax.servlet.Servlet#service} method. There's no
      * need to override this method.
      *
-     * @param req   the {@link HttpServletRequest} object that
+     * @param req   the {@link HttpServletRuest} object that
      *                  contains the request the client made of
      *                  the servlet
      *
@@ -623,14 +623,15 @@ public abstract class HttpServlet extends GenericServlet {
      */
     protected void service(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
-
+        // 获取请求的方式
         String method = req.getMethod();
-
+        // 根据请求的方式执行不同的方法
         if (method.equals(METHOD_GET)) {
             long lastModified = getLastModified(req);
             if (lastModified == -1) {
                 // servlet doesn't support if-modified-since, no reason
                 // to go through further expensive logic
+                // 执行继承了 HTTPServlet 的 doGet 方法
                 doGet(req, resp);
             } else {
                 long ifModifiedSince;

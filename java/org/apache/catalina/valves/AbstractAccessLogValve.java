@@ -656,7 +656,7 @@ public abstract class AbstractAccessLogValve extends ValveBase implements Access
             // the access log requests the TLS info. Requesting it now causes it
             // to be cached in the request.
             request.getAttribute(Globals.CERTIFICATES_ATTR);
-        }
+        } // 让下一个 host 执行
         getNext().invoke(request, response);
     }
 

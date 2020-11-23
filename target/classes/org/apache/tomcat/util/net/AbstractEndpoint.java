@@ -1069,13 +1069,16 @@ public abstract class AbstractEndpoint<S> {
             if (socketWrapper == null) {
                 return false;
             }
+            // 返回一个 processor
             SocketProcessorBase<S> sc = processorCache.pop();
             if (sc == null) {
                 sc = createSocketProcessor(socketWrapper, event);
             } else {
                 sc.reset(socketWrapper, event);
             }
+            // 线程池
             Executor executor = getExecutor();
+            // 由这个线程池执行任务
             if (dispatch && executor != null) {
                 executor.execute(sc);
             } else {
