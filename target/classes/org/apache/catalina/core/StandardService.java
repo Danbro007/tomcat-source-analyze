@@ -417,21 +417,23 @@ public class StandardService extends LifecycleMBeanBase implements Service {
         setState(LifecycleState.STARTING);
 
         // Start our defined Container first
+        // 首先启动 Engine 既容器
         if (engine != null) {
             synchronized (engine) {
                 engine.start();
             }
         }
-
+        // 启动线程池
         synchronized (executors) {
             for (Executor executor: executors) {
                 executor.start();
             }
         }
-
+        // 启动 Mapper 监听器
         mapperListener.start();
 
         // Start our defined Connectors second
+        // 第二启动 Connector
         synchronized (connectorsLock) {
             for (Connector connector: connectors) {
                 try {
@@ -529,7 +531,7 @@ public class StandardService extends LifecycleMBeanBase implements Service {
     protected void initInternal() throws LifecycleException {
         // 先调用父类的 initInternal() 方法
         super.initInternal();
-
+        // 初始化 Engine
         if (engine != null) {
             engine.init();
         }
@@ -548,6 +550,7 @@ public class StandardService extends LifecycleMBeanBase implements Service {
         mapperListener.init();
 
         // Initialize our defined Connectors
+        // 初始化 Connector
         synchronized (connectorsLock) {
             for (Connector connector : connectors) {
                 try {

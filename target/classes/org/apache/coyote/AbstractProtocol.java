@@ -577,7 +577,7 @@ public abstract class AbstractProtocol<S> implements ProtocolHandler,
         String endpointName = getName();
         endpoint.setName(endpointName.substring(1, endpointName.length()-1));
         endpoint.setDomain(domain);
-
+        // 初始化 EndPoint
         endpoint.init();
     }
 
@@ -587,7 +587,7 @@ public abstract class AbstractProtocol<S> implements ProtocolHandler,
         if (getLog().isInfoEnabled()) {
             getLog().info(sm.getString("abstractProtocolHandler.start", getName()));
         }
-
+        // 启动 EndPoint 开启监听并接受请求
         endpoint.start();
 
         // Start async timeout thread

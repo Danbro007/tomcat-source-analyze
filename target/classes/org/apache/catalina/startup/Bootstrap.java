@@ -350,12 +350,16 @@ public final class Bootstrap {
 
     /**
      * Start the Catalina daemon.
+     *
+     *
+     *  启动服务
+     *
      * @throws Exception Fatal start error
      */
     public void start()
         throws Exception {
         if( catalinaDaemon==null ) init();
-
+        // 调用 Catalina 的 start() 方法
         Method method = catalinaDaemon.getClass().getMethod("start", (Class [] )null);
         method.invoke(catalinaDaemon, (Object [])null);
 

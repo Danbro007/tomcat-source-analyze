@@ -208,6 +208,9 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
 
     /**
      * Initialize the endpoint.
+     *
+     * 监听端口，打开 Socket 连接
+     *
      */
     @Override
     public void bind() throws Exception {

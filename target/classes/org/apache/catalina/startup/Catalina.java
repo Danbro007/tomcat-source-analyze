@@ -691,7 +691,7 @@ public class Catalina {
      *
      */
     public void start() {
-
+        // 初始化一系列的服务，比如 Container、ProtocolHandler等
         if (getServer() == null) {
             load();
         }
@@ -705,6 +705,7 @@ public class Catalina {
 
         // Start the new server
         try {
+            // 启动 Server
             getServer().start();
         } catch (LifecycleException e) {
             log.fatal(sm.getString("catalina.serverStartFail"), e);
