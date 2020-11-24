@@ -99,6 +99,7 @@ final class StandardWrapperValve
         // This should be a Request attribute...
         long t1=System.currentTimeMillis();
         requestCount.incrementAndGet();
+        // 请求对对应的 Servlet 信息
         StandardWrapper wrapper = (StandardWrapper) getContainer();
         Servlet servlet = null;
         Context context = (Context) wrapper.getParent();
@@ -131,6 +132,7 @@ final class StandardWrapperValve
         // Allocate a servlet instance to process this request
         try {
             if (!unavailable) {
+                // servlet 来处理请求
                 servlet = wrapper.allocate();
             }
         } catch (UnavailableException e) {
@@ -169,6 +171,7 @@ final class StandardWrapperValve
         request.setAttribute(Globals.DISPATCHER_REQUEST_PATH_ATTR,
                 requestPathMB);
         // Create the filter chain for this request
+        // 把 Servlet 封装进过滤器执行链中
         ApplicationFilterChain filterChain =
                 ApplicationFilterFactory.createFilterChain(request, wrapper, servlet);
 
@@ -183,6 +186,7 @@ final class StandardWrapperValve
                         if (request.isAsyncDispatching()) {
                             request.getAsyncContextInternal().doInternalDispatch();
                         } else {
+                            // 执行过滤器并让 Servlet 处理请求
                             filterChain.doFilter(request.getRequest(),
                                     response.getResponse());
                         }

@@ -481,7 +481,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
                     SocketChannel socket = null;
                     try {
                         // Accept the next incoming connection from the server
-                        // socket
+                        // socket 从 socketServer 获取到一个 Socket 连接
                         socket = serverSock.accept();
                     } catch (IOException ioe) {
                         // We didn't get a socket
@@ -882,7 +882,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
                         } else {
                             unreg(sk, attachment, sk.readyOps());
                             boolean closeSocket = false;
-                            // Read goes before write
+                            // Read goes before write 先判断 socket 是不是可读的，是的话则处理这个 socket 连接
                             if (sk.isReadable()) {
                                 if (!processSocket(attachment, SocketEvent.OPEN_READ, true)) {
                                     closeSocket = true;
@@ -1454,12 +1454,14 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
         public SocketProcessor(SocketWrapperBase<NioChannel> socketWrapper, SocketEvent event) {
             super(socketWrapper, event);
         }
-
+        //
         @Override
         protected void doRun() {
+            // 获取 socket
             NioChannel socket = socketWrapper.getSocket();
+            // 当前 socket 的监听事件
             SelectionKey key = socket.getIOChannel().keyFor(socket.getPoller().getSelector());
-
+            // 三次握手
             try {
                 int handshake = -1;
 
@@ -1494,7 +1496,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
                 }
                 if (handshake == 0) {
                     SocketState state = SocketState.OPEN;
-                    // Process the request from this socket
+                    // 处理来自 socket 的请求
                     if (event == null) {
                         state = getHandler().process(socketWrapper, SocketEvent.OPEN_READ);
                     } else {

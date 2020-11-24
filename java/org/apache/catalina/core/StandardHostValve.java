@@ -105,7 +105,7 @@ final class StandardHostValve extends ValveBase {
     public final void invoke(Request request, Response response)
         throws IOException, ServletException {
 
-        // Select the Context to be used for this Request
+        // Select the Context to be used for this Request 选择一个 context 来处理这个请求
         Context context = request.getContext();
         if (context == null) {
             return;
@@ -117,7 +117,7 @@ final class StandardHostValve extends ValveBase {
 
         boolean asyncAtStart = request.isAsync();
 
-        try {
+        try {// context 与 servlet 进行绑定
             context.bind(Globals.IS_SECURITY_ENABLED, MY_CLASSLOADER);
 
             if (!asyncAtStart && !context.fireRequestInitEvent(request.getRequest())) {

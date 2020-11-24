@@ -793,6 +793,7 @@ public abstract class AbstractProtocol<S> implements ProtocolHandler,
                     }
                 }
                 if (processor == null) {
+                    // 获取一个处理器来处理 Http1.1 协议的请求。然后注册。
                     processor = getProtocol().createProcessor();
                     register(processor);
                 }
@@ -801,10 +802,12 @@ public abstract class AbstractProtocol<S> implements ProtocolHandler,
                         wrapper.getSslSupport(getProtocol().getClientCertProvider()));
 
                 // Associate the processor with the connection
+                // 关联 processor 和 socket
                 connections.put(socket, processor);
 
                 SocketState state = SocketState.CLOSED;
                 do {
+                    // 处理 Http 请求
                     state = processor.process(wrapper, status);
 
                     if (state == SocketState.UPGRADING) {
