@@ -69,8 +69,8 @@ final class StandardEngineValve extends ValveBase {
     @Override
     public final void invoke(Request request, Response response)
         throws IOException, ServletException {
-
         // Select the Host to be used for this Request
+        // 给当前的请求选择 Host
         Host host = request.getHost();
         if (host == null) {
             response.sendError
@@ -83,7 +83,7 @@ final class StandardEngineValve extends ValveBase {
             request.setAsyncSupported(host.getPipeline().isAsyncSupported());
         }
 
-        // Ask this Host to process this request
+        // Ask this Host to process this request 让 host 处理这个请求
         host.getPipeline().getFirst().invoke(request, response);
 
     }
